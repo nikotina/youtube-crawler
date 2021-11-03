@@ -1,0 +1,57 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    jkube.io/scm-tag: HEAD
+    jkube.io/scm-url: https://github.com/spring-projects/spring-boot/youtube--crawler
+  labels:
+    app: youtube--crawler
+    provider: jkube
+    version: 0.0.1-SNAPSHOT
+    group: com.seventhnode
+  name: youtube--crawler
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: youtube--crawler
+      provider: jkube
+      group: com.seventhnode
+  template:
+    metadata:
+      annotations:
+        jkube.io/scm-tag: HEAD
+        jkube.io/scm-url: https://github.com/spring-projects/spring-boot/youtube--crawler
+      labels:
+        app: youtube--crawler
+        provider: jkube
+        version: 0.0.1-SNAPSHOT
+        group: com.seventhnode
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        image: docker.io/seventhnode/youtube-crawler:0.0.1-SNAPSHOT
+        imagePullPolicy: IfNotPresent
+        name: spring-boot
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 9779
+          name: prometheus
+          protocol: TCP
+        - containerPort: 8778
+          name: jolokia
+          protocol: TCP
+        securityContext:
+          privileged: false

@@ -1,0 +1,86 @@
+---
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      jkube.io/scm-url: https://github.com/spring-projects/spring-boot/youtube--crawler
+      prometheus.io/scrape: "true"
+      jkube.io/scm-tag: HEAD
+      prometheus.io/path: /metrics
+      prometheus.io/port: "9779"
+    labels:
+      expose: "true"
+      app: youtube--crawler
+      provider: jkube
+      version: 0.0.1-SNAPSHOT
+      group: com.seventhnode
+    name: youtube-crawler
+  spec:
+    ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: youtube--crawler
+      provider: jkube
+      group: com.seventhnode
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      jkube.io/scm-tag: HEAD
+      jkube.io/scm-url: https://github.com/spring-projects/spring-boot/youtube--crawler
+    labels:
+      app: youtube--crawler
+      provider: jkube
+      version: 0.0.1-SNAPSHOT
+      group: com.seventhnode
+    name: youtube--crawler
+  spec:
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        app: youtube--crawler
+        provider: jkube
+        group: com.seventhnode
+    template:
+      metadata:
+        annotations:
+          jkube.io/scm-tag: HEAD
+          jkube.io/scm-url: https://github.com/spring-projects/spring-boot/youtube--crawler
+        labels:
+          app: youtube--crawler
+          provider: jkube
+          version: 0.0.1-SNAPSHOT
+          group: com.seventhnode
+      spec:
+        containers:
+        - env:
+          - name: KUBERNETES_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: HOSTNAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          image: docker.io/seventhnode/youtube-crawler:0.0.1-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          name: spring-boot
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 9779
+            name: prometheus
+            protocol: TCP
+          - containerPort: 8778
+            name: jolokia
+            protocol: TCP
+          securityContext:
+            privileged: false
