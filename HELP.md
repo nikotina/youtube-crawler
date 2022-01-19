@@ -1,8 +1,3 @@
-# Read Me First
-The following was discovered as part of building this project:
-
-* The original package name 'com.seventhnode.youtube-crawler' is invalid and this project uses 'com.seventhnode.youtubecrawler' instead.
-
 # Getting Started
 
 ### Reference Documentation
