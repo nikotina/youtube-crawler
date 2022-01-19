@@ -33,7 +33,7 @@ public class CrawlingInfoServiceImpl implements  CrawlingInfoService {
 
     @Override
     public CrawlingInfo get(long id) {
-        return crawlingInfoRepository.getOne(id);
+        return crawlingInfoRepository.getById(id);
     }
 
     @Override

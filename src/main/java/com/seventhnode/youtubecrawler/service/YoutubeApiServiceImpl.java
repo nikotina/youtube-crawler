@@ -1,12 +1,10 @@
 package com.seventhnode.youtubecrawler.service;
 
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.YouTubeRequestInitializer;
 import com.google.api.services.youtube.model.*;
@@ -14,7 +12,6 @@ import com.seventhnode.youtubecrawler.entity.CrawlingInfo;
 import com.seventhnode.youtubecrawler.entity.YouTubeVideoInfo;
 import com.seventhnode.youtubecrawler.entity.YoutubeChannelInfo;
 import com.seventhnode.youtubecrawler.entity.YoutubeVideoStatistics;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Async;
@@ -22,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -36,7 +34,7 @@ public class YoutubeApiServiceImpl implements YoutubeApiService {
 
 	public static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
-	public static final JsonFactory JSON_FACTORY = new JacksonFactory();
+	public static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
 	private YouTube youtube;
 
@@ -61,21 +59,19 @@ public class YoutubeApiServiceImpl implements YoutubeApiService {
 	}
 
 	@Transactional
-	public List<Object> getYoutubeVideoList(String queryTerm, long pageToCrawl) {
+	public void getYoutubeVideoList(String queryTerm, long pageToCrawl) {
 
 		try {
 
-			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
-				public void initialize(HttpRequest request) throws IOException {
-				}
+			youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, request -> {
 			}).setApplicationName("YoutubeVideoInfo")
 					.setYouTubeRequestInitializer(new YouTubeRequestInitializer(env.getProperty("youtube.apikey")))
 					.build();
 
-			YouTube.Search.List search = youtube.search().list("id,snippet");
+			YouTube.Search.List search = youtube.search().list(Collections.singletonList("id,snippet"));
 
 			search.setQ(queryTerm);
-			search.setType("video");
+			search.setType(Collections.singletonList("video"));
 			search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
 
 			for (int i = 0; i < pageToCrawl; i++) {
@@ -117,7 +113,6 @@ public class YoutubeApiServiceImpl implements YoutubeApiService {
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
-		return null;
 	}
 
 	private void extractAndSave(Iterator<SearchResult> iteratorSearchResults, String query) throws IOException {
@@ -148,10 +143,7 @@ public class YoutubeApiServiceImpl implements YoutubeApiService {
 					youTubeVideoInfo.setVideoId(rId.getVideoId());
 					youTubeVideoInfo.setTitle(singleVideo.getSnippet().getTitle());
 					youTubeVideoInfo.setThumbnailUrl(thumbnail.getUrl());
-					// youTubeVideoInfo.setDuration(singleVideo.getContent);
-
 					youTubeVideoInfo.setChannelInfo(getChannelDetailsById(singleVideo.getSnippet().getChannelId()));
-
 					youTubeVideoInfo.setVideoStatistics(getVideosStatistics(rId.getVideoId()));
 				}
 				youTubeVideoInfo = getContentDetails(rId.getVideoId(), youTubeVideoInfo);
@@ -165,11 +157,11 @@ public class YoutubeApiServiceImpl implements YoutubeApiService {
 	}
 
 	private YoutubeChannelInfo getChannelDetailsById(String channelId) throws IOException {
-		YouTube.Channels.List channels = youtube.channels().list("snippet, statistics");
+		YouTube.Channels.List channels = youtube.channels().list(Collections.singletonList("snippet, statistics"));
 
 		YoutubeChannelInfo youtubeChannelInfo = new YoutubeChannelInfo();
 		youtubeChannelInfo.setChannelId(channelId);
-		channels.setId(channelId);
+		channels.setId(Collections.singletonList(channelId));
 		ChannelListResponse channelResponse = channels.execute();
 		if (null != channelResponse.getItems()) {
 			Channel c = channelResponse.getItems().get(0);
@@ -177,8 +169,6 @@ public class YoutubeApiServiceImpl implements YoutubeApiService {
 			youtubeChannelInfo.setName(c.getSnippet().getTitle());
 			if (null != c.getStatistics().getSubscriberCount()) {
 				youtubeChannelInfo.setSubscriptionCount(c.getStatistics().getSubscriberCount().longValue());
-			} else {
-				// youtubeChannelInfo.setSubscriptionCount(0L);
 			}
 		}
 
@@ -193,8 +183,8 @@ public class YoutubeApiServiceImpl implements YoutubeApiService {
 	}
 
 	public YoutubeVideoStatistics getVideosStatistics(String id) throws IOException {
-		YouTube.Videos.List list = youtube.videos().list("statistics");
-		list.setId(id);
+		YouTube.Videos.List list = youtube.videos().list(Collections.singletonList("statistics"));
+		list.setId(Collections.singletonList(id));
 		Video v = list.execute().getItems().get(0);
 
 		YoutubeVideoStatistics statistics = new YoutubeVideoStatistics();
@@ -217,8 +207,8 @@ public class YoutubeApiServiceImpl implements YoutubeApiService {
 	}
 
 	public YouTubeVideoInfo getContentDetails(String id, YouTubeVideoInfo youTubeVideoInfo) throws IOException {
-		YouTube.Videos.List list = youtube.videos().list("contentDetails");
-		list.setId(id);
+		YouTube.Videos.List list = youtube.videos().list(Collections.singletonList("contentDetails"));
+		list.setId(Collections.singletonList(id));
 		Video v = list.execute().getItems().get(0);
 		youTubeVideoInfo.setVideoDuration(v.getContentDetails().getDuration());
 		youTubeVideoInfo.setVideoDefinition(v.getContentDetails().getDefinition());
