@@ -1,14 +1,55 @@
 package com.seventhnode.youtubecrawler.service;
 
-import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.seventhnode.youtubecrawler.entity.CrawlingInfo;
+import com.seventhnode.youtubecrawler.repository.CrawlingInfoRepository;
+import com.seventhnode.youtubecrawler.repository.YoutubeVideoInfoRepository;
 
-public interface CrawlingInfoService {
-    void save(CrawlingInfo crawlingInfo);
-    void update(CrawlingInfo crawlingInfo);
-    CrawlingInfo get(long id);
-    CrawlingInfo getBySearchKey(String searchKey);
-    List<CrawlingInfo> getAll();
-    void deleteById(long id);
+import java.util.List;
+
+@Service
+@Transactional
+public class CrawlingInfoService {
+
+    @Autowired
+    private CrawlingInfoRepository crawlingInfoRepository;
+    
+    @Autowired
+    private YoutubeVideoInfoRepository youtubeVideoInfoRepository;
+
+
+    public void save(CrawlingInfo crawlingInfo) {
+        crawlingInfoRepository.save(crawlingInfo);
+    }
+
+    public void update(CrawlingInfo crawlingInfo) {
+        crawlingInfoRepository.save(crawlingInfo);
+    }
+
+
+    public CrawlingInfo get(long id) {
+        return crawlingInfoRepository.getOne(id);
+    }
+
+
+    public CrawlingInfo getBySearchKey(String searchKey) {
+        return crawlingInfoRepository.findBySearchKey(searchKey);
+    }
+
+
+    public List<CrawlingInfo> getAll() {
+        return crawlingInfoRepository.findAll();
+    }
+
+    public void deleteById(long id) {
+    	CrawlingInfo cI = crawlingInfoRepository.getById(id);
+    	String searchKey = cI.getSearchKey();
+    	youtubeVideoInfoRepository.deleteByKeyword(searchKey);
+    	crawlingInfoRepository.deleteById(id);
+    	
+    }
 }
