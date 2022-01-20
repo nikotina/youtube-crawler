@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90cf9d32-55c2-424d-93d4-405ed3914608" name="Changes" comment="cleanup">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml.bak" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/seventhnode/youtubecrawler/service/CrawlingInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/seventhnode/youtubecrawler/service/CrawlingInfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/seventhnode/youtubecrawler/service/YoutubeApiServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/seventhnode/youtubecrawler/service/YoutubeApiServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/seventhnode/youtubecrawler/api/YoutubeDownloadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/seventhnode/youtubecrawler/api/YoutubeDownloadController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,41 +17,11 @@
   <component name="Git.Merge.Settings">
     <option name="BRANCH" value="origin/synctest" />
   </component>
-  <component name="Git.Rebase.Settings">
-    <option name="NEW_BASE" value="origin/synctest" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="4dd8ba5c-654e-4663-a892-ab9430097c2a" />
-        <option name="url" value="https://github.com/nikotina/youtube-crawler" />
-      </UrlAndAccount>
-    </option>
-  </component>
-  <component name="JpbToolWindowState">
-    <option name="myId2FirstActivated">
-      <map>
-        <entry key="JPA Inspector" value="true" />
-        <entry key="JPA Palette" value="true" />
-        <entry key="JPA Structure" value="true" />
-      </map>
-    </option>
-    <option name="myId2Visible">
-      <map>
-        <entry key="JPA Inspector" value="true" />
-        <entry key="JPA Palette" value="true" />
-        <entry key="JPA Structure" value="true" />
-      </map>
-    </option>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="1" />
   </component>
   <component name="ProjectId" id="20QXHnzZ0IlieNjOa1IKREElsRG" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -70,83 +33,25 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="DatabaseDriversLRU" value="mariadb" />
-    <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="Maven.youtube--crawler [clean,install]">
-    <configuration name="youtube--crawler [clean,install]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="clean" />
-                <option value="install" />
-              </list>
-            </option>
-            <option name="pomFileName" />
-            <option name="profilesMap">
-              <map />
-            </option>
-            <option name="resolveToWorkspace" value="true" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method v="2" />
-    </configuration>
-    <configuration name="youtube-crawler" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <log_file alias="youtube-crawler.log" path="$PROJECT_DIR$" />
-      <module name="youtube--crawler" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.seventhnode.youtubecrawler.YoutubeCrawlerApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="mvn install" />
       </method>
     </configuration>
-    <configuration name="Docker Image" type="docker-deploy" factoryName="docker-image" temporary="true" server-name="Docker">
-      <deployment type="docker-image">
-        <settings>
-          <option name="imageTag" value="seventhnode/youtube-crawler" />
-          <option name="containerName" value="" />
-        </settings>
-      </deployment>
-      <method v="2" />
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="Docker" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
-      <deployment type="dockerfile">
-        <settings>
-          <option name="imageTag" value="youtube-crawler" />
-          <option name="containerName" value="" />
-          <option name="sourceFilePath" value="Dockerfile" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Maven.youtube--crawler [clean,install]" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -157,14 +62,6 @@
       <option name="presentableId" value="Default" />
       <updated>1635977713062</updated>
       <workItem from="1635977726627" duration="892000" />
-      <workItem from="1636100163631" duration="165505000" />
-      <workItem from="1636385704398" duration="7571000" />
-      <workItem from="1636436965099" duration="653000" />
-      <workItem from="1636802076406" duration="802000" />
-      <workItem from="1636802891261" duration="16044000" />
-      <workItem from="1637582229546" duration="16036000" />
-      <workItem from="1638376112169" duration="509000" />
-      <workItem from="1638784327892" duration="565000" />
     </task>
     <task id="LOCAL-00001" summary="cleanup">
       <created>1635978390111</created>
@@ -179,134 +76,6 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="UnknownFeatures">
-    <option featureType="dependencySupport" implementationName="java:com.google.api-client:google-api-client" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
-    <option featureType="dependencySupport" implementationName="java:org.slf4j:jul-to-slf4j" />
-    <option featureType="dependencySupport" implementationName="java:jakarta.xml.bind:jakarta.xml.bind-api" />
-    <option featureType="dependencySupport" implementationName="java:org.javassist:javassist" />
-    <option featureType="dependencySupport" implementationName="java:com.zaxxer:HikariCP" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.cloud:spring-cloud-context" />
-    <option featureType="dependencySupport" implementationName="java:io.grpc:grpc-context" />
-    <option featureType="dependencySupport" implementationName="java:com.google.http-client:google-http-client" />
-    <option featureType="dependencySupport" implementationName="java:net.minidev:accessors-smart" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-webmvc" />
-    <option featureType="dependencySupport" implementationName="java:com.google.j2objc:j2objc-annotations" />
-    <option featureType="dependencySupport" implementationName="java:jakarta.xml.soap:jakarta.xml.soap-api" />
-    <option featureType="dependencySupport" implementationName="java:com.google.http-client:google-http-client-apache-v2" />
-    <option featureType="dependencySupport" implementationName="java:com.google.code.gson:gson" />
-    <option featureType="dependencySupport" implementationName="java:org.aspectj:aspectjweaver" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.hateoas:spring-hateoas" />
-    <option featureType="dependencySupport" implementationName="java:com.fasterxml:classmate" />
-    <option featureType="dependencySupport" implementationName="java:org.apache.tomcat.embed:tomcat-embed-core" />
-    <option featureType="dependencySupport" implementationName="java:com.fasterxml.jackson.datatype:jackson-datatype-jsr310" />
-    <option featureType="dependencySupport" implementationName="java:org.hibernate:hibernate-core" />
-    <option featureType="dependencySupport" implementationName="java:org.glassfish.jaxb:jaxb-runtime" />
-    <option featureType="dependencySupport" implementationName="java:jakarta.xml.ws:jakarta.xml.ws-api" />
-    <option featureType="dependencySupport" implementationName="java:org.apache.tomcat.embed:tomcat-embed-websocket" />
-    <option featureType="dependencySupport" implementationName="java:ch.qos.logback:logback-classic" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.ws:spring-ws-core" />
-    <option featureType="dependencySupport" implementationName="java:jakarta.validation:jakarta.validation-api" />
-    <option featureType="dependencySupport" implementationName="java:com.google.errorprone:error_prone_annotations" />
-    <option featureType="dependencySupport" implementationName="java:org.glassfish.jaxb:txw2" />
-    <option featureType="dependencySupport" implementationName="java:com.google.http-client:google-http-client-gson" />
-    <option featureType="dependencySupport" implementationName="java:org.opentest4j:opentest4j" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.ws:spring-xml" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-tx" />
-    <option featureType="dependencySupport" implementationName="java:com.google.guava:listenablefuture" />
-    <option featureType="dependencySupport" implementationName="java:com.google.api-client:google-api-client-jackson2" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.data:spring-data-rest-webmvc" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.security:spring-security-rsa" />
-    <option featureType="dependencySupport" implementationName="java:com.google.oauth-client:google-oauth-client" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-jcl" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-web" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-starter-logging" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-starter-data-rest" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-starter-web-services" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-starter-aop" />
-    <option featureType="dependencySupport" implementationName="java:org.bouncycastle:bcprov-jdk15on" />
-    <option featureType="dependencySupport" implementationName="java:org.apache.httpcomponents:httpcore" />
-    <option featureType="dependencySupport" implementationName="java:ch.qos.logback:logback-core" />
-    <option featureType="dependencySupport" implementationName="java:org.checkerframework:checker-qual" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.data:spring-data-rest-core" />
-    <option featureType="dependencySupport" implementationName="java:org.hibernate.validator:hibernate-validator" />
-    <option featureType="dependencySupport" implementationName="java:com.fasterxml.jackson.core:jackson-databind" />
-    <option featureType="dependencySupport" implementationName="java:org.apache.logging.log4j:log4j-to-slf4j" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-starter" />
-    <option featureType="dependencySupport" implementationName="java:org.jboss.logging:jboss-logging" />
-    <option featureType="dependencySupport" implementationName="java:org.slf4j:slf4j-api" />
-    <option featureType="dependencySupport" implementationName="java:org.ow2.asm:asm" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.cloud:spring-cloud-commons" />
-    <option featureType="dependencySupport" implementationName="java:com.google.apis:google-api-services-youtube" />
-    <option featureType="dependencySupport" implementationName="java:com.google.guava:guava" />
-    <option featureType="dependencySupport" implementationName="java:antlr:antlr" />
-    <option featureType="dependencySupport" implementationName="java:org.yaml:snakeyaml" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-autoconfigure" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-starter-json" />
-    <option featureType="dependencySupport" implementationName="java:io.projectreactor:reactor-core" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-expression" />
-    <option featureType="dependencySupport" implementationName="java:com.fasterxml.jackson.datatype:jackson-datatype-jdk8" />
-    <option featureType="dependencySupport" implementationName="java:org.reactivestreams:reactive-streams" />
-    <option featureType="dependencySupport" implementationName="java:org.projectlombok:lombok" />
-    <option featureType="dependencySupport" implementationName="java:org.apache.httpcomponents:httpclient" />
-    <option featureType="dependencySupport" implementationName="java:com.fasterxml.jackson.module:jackson-module-parameter-names" />
-    <option featureType="dependencySupport" implementationName="java:org.apiguardian:apiguardian-api" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-jdbc" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-starter-jdbc" />
-    <option featureType="dependencySupport" implementationName="java:jakarta.transaction:jakarta.transaction-api" />
-    <option featureType="dependencySupport" implementationName="java:com.sun.xml.messaging.saaj:saaj-impl" />
-    <option featureType="dependencySupport" implementationName="java:net.bytebuddy:byte-buddy" />
-    <option featureType="dependencySupport" implementationName="java:commons-codec:commons-codec" />
-    <option featureType="dependencySupport" implementationName="java:com.google.http-client:google-http-client-jackson2" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-starter-validation" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-starter-data-jpa" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.data:spring-data-commons" />
-    <option featureType="dependencySupport" implementationName="java:jakarta.jws:jakarta.jws-api" />
-    <option featureType="dependencySupport" implementationName="java:org.jboss:jandex" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-aspects" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-oxm" />
-    <option featureType="dependencySupport" implementationName="java:org.dom4j:dom4j" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-beans" />
-    <option featureType="dependencySupport" implementationName="java:com.jayway.jsonpath:json-path" />
-    <option featureType="dependencySupport" implementationName="java:org.hibernate.common:hibernate-commons-annotations" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.data:spring-data-jpa" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.cloud:spring-cloud-starter" />
-    <option featureType="dependencySupport" implementationName="java:org.atteo:evo-inflector" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-starter-cache" />
-    <option featureType="dependencySupport" implementationName="java:org.checkerframework:checker-compat-qual" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
-    <option featureType="dependencySupport" implementationName="java:org.jvnet.staxex:stax-ex" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.security:spring-security-crypto" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-starter-tomcat" />
-    <option featureType="dependencySupport" implementationName="java:com.fasterxml.jackson.core:jackson-annotations" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-test" />
-    <option featureType="dependencySupport" implementationName="java:com.fasterxml.jackson.core:jackson-core" />
-    <option featureType="dependencySupport" implementationName="java:org.junit.platform:junit-platform-commons" />
-    <option featureType="dependencySupport" implementationName="java:jakarta.annotation:jakarta.annotation-api" />
-    <option featureType="dependencySupport" implementationName="java:jakarta.persistence:jakarta.persistence-api" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.cloud:spring-cloud-loadbalancer" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-orm" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-context-support" />
-    <option featureType="dependencySupport" implementationName="java:com.google.code.findbugs:jsr305" />
-    <option featureType="dependencySupport" implementationName="java:io.opencensus:opencensus-contrib-http-util" />
-    <option featureType="dependencySupport" implementationName="java:io.opencensus:opencensus-api" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-context" />
-    <option featureType="dependencySupport" implementationName="java:io.projectreactor.addons:reactor-extra" />
-    <option featureType="dependencySupport" implementationName="java:com.stoyanr:evictor" />
-    <option featureType="dependencySupport" implementationName="java:com.sun.istack:istack-commons-runtime" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-aop" />
-    <option featureType="dependencySupport" implementationName="java:com.google.guava:failureaccess" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.plugin:spring-plugin-core" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.cloud:spring-cloud-starter-loadbalancer" />
-    <option featureType="dependencySupport" implementationName="java:org.junit.jupiter:junit-jupiter-api" />
-    <option featureType="dependencySupport" implementationName="java:net.minidev:json-smart" />
-    <option featureType="dependencySupport" implementationName="java:org.bouncycastle:bcpkix-jdk15on" />
-    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot-starter-web" />
-    <option featureType="dependencySupport" implementationName="java:org.apache.tomcat.embed:tomcat-embed-el" />
-    <option featureType="dependencySupport" implementationName="java:com.sun.activation:jakarta.activation" />
-    <option featureType="dependencySupport" implementationName="java:org.mariadb.jdbc:mariadb-java-client" />
-    <option featureType="dependencySupport" implementationName="java:org.apache.logging.log4j:log4j-api" />
-  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -317,34 +86,9 @@
         </entry>
         <entry key="b1d27bc3-2e62-464d-9351-f1c315aacbf7">
           <value>
-            <State>
-              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="HEAD" />
-                      </list>
-                    </value>
-                  </entry>
-                  <entry key="roots">
-                    <value>
-                      <list>
-                        <option value="$PROJECT_DIR$" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
-      </map>
-    </option>
-    <option name="OPEN_GENERIC_TABS">
-      <map>
-        <entry key="b1d27bc3-2e62-464d-9351-f1c315aacbf7" value="TOOL_WINDOW" />
       </map>
     </option>
   </component>

@@ -1,14 +1,15 @@
 package com.seventhnode.youtubecrawler.api;
 
-import com.seventhnode.youtubecrawler.exception.*;
-import com.seventhnode.youtubecrawler.entity.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.seventhnode.youtubecrawler.entity.*;
+import com.seventhnode.youtubecrawler.exception.YoutubeDLException;
+import com.seventhnode.youtubecrawler.util.DownloadProgressCallback;
 import com.seventhnode.youtubecrawler.util.StreamGobbler;
+import com.seventhnode.youtubecrawler.util.StreamProcessExtractor;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +17,8 @@ import java.util.Map;
  * <p>Provide an interface for youtube-dl executable</p>
  *
  * <p>
- * For more information on youtube-dl, please see
- * <a href="https://github.com/rg3/youtube-dl/blob/master/README.md">YoutubeDL Documentation</a>
+ *     For more information on youtube-dl, please see
+ *     <a href="https://github.com/rg3/youtube-dl/blob/master/README.md">YoutubeDL Documentation</a>
  * </p>
  */
 public class YoutubeDL {
@@ -29,7 +30,6 @@ public class YoutubeDL {
 
     /**
      * Append executable name to command
-     *
      * @param command Command string
      * @return Command string
      */
@@ -39,13 +39,22 @@ public class YoutubeDL {
 
     /**
      * Execute youtube-dl request
-     *
      * @param request request object
-     *
      * @return response object
      * @throws YoutubeDLException
      */
     public static YoutubeDLResponse execute(YoutubeDLRequest request) throws YoutubeDLException {
+        return execute(request, null);
+    }
+
+    /**
+     * Execute youtube-dl request
+     * @param request request object
+     * @param callback callback
+     * @return response object
+     * @throws YoutubeDLException
+     */
+    public static YoutubeDLResponse execute(YoutubeDLRequest request, DownloadProgressCallback callback) throws YoutubeDLException {
 
         String command = buildCommand(request.buildOptions());
         String directory = request.getDirectory();
@@ -54,17 +63,16 @@ public class YoutubeDL {
         YoutubeDLResponse youtubeDLResponse;
         Process process;
         int exitCode;
-        StringBuffer outBuffer = new StringBuffer();
-        StringBuffer errBuffer = new StringBuffer();
+        StringBuffer outBuffer = new StringBuffer(); //stdout
+        StringBuffer errBuffer = new StringBuffer(); //stderr
         long startTime = System.nanoTime();
 
-        // TODO A nice place to break everything
         String[] split = command.split(" ");
 
         ProcessBuilder processBuilder = new ProcessBuilder(split);
 
         // Define directory if one is passed
-        if (directory != null)
+        if(directory != null)
             processBuilder.directory(new File(directory));
 
         try {
@@ -76,10 +84,12 @@ public class YoutubeDL {
         InputStream outStream = process.getInputStream();
         InputStream errStream = process.getErrorStream();
 
-        new StreamGobbler(outBuffer, outStream);
-        new StreamGobbler(errBuffer, errStream);
+        StreamProcessExtractor stdOutProcessor = new StreamProcessExtractor(outBuffer, outStream, callback);
+        StreamGobbler stdErrProcessor = new StreamGobbler(errBuffer, errStream);
 
         try {
+            stdOutProcessor.join();
+            stdErrProcessor.join();
             exitCode = process.waitFor();
         } catch (InterruptedException e) {
 
@@ -90,13 +100,13 @@ public class YoutubeDL {
         String out = outBuffer.toString();
         String err = errBuffer.toString();
 
-        if (exitCode > 0) {
+        if(exitCode > 0) {
             throw new YoutubeDLException(err);
         }
 
         int elapsedTime = (int) ((System.nanoTime() - startTime) / 1000000);
 
-        youtubeDLResponse = new YoutubeDLResponse(command, options, directory, exitCode, elapsedTime, out, err);
+        youtubeDLResponse = new YoutubeDLResponse(command, options, directory, exitCode , elapsedTime, out, err);
 
         return youtubeDLResponse;
     }
@@ -104,7 +114,6 @@ public class YoutubeDL {
 
     /**
      * Get youtube-dl executable version
-     *
      * @return version string
      * @throws YoutubeDLException
      */
@@ -116,12 +125,11 @@ public class YoutubeDL {
 
     /**
      * Retrieve all information available on a video
-     *
      * @param url Video url
      * @return Video info
      * @throws YoutubeDLException
      */
-    public static VideoInfo getVideoInfo(String url) throws YoutubeDLException {
+    public static VideoInfo getVideoInfo(String url) throws YoutubeDLException  {
 
         // Build request
         YoutubeDLRequest request = new YoutubeDLRequest(url);
@@ -131,7 +139,7 @@ public class YoutubeDL {
 
         // Parse result
         ObjectMapper objectMapper = new ObjectMapper();
-        VideoInfo videoInfo = null;
+        VideoInfo videoInfo;
 
         try {
             videoInfo = objectMapper.readValue(response.getOut(), VideoInfo.class);
@@ -144,7 +152,6 @@ public class YoutubeDL {
 
     /**
      * List formats
-     *
      * @param url Video url
      * @return list of formats
      * @throws YoutubeDLException
@@ -156,7 +163,6 @@ public class YoutubeDL {
 
     /**
      * List thumbnails
-     *
      * @param url Video url
      * @return list of thumbnail
      * @throws YoutubeDLException
@@ -168,7 +174,6 @@ public class YoutubeDL {
 
     /**
      * List categories
-     *
      * @param url Video url
      * @return list of category
      * @throws YoutubeDLException
@@ -180,7 +185,6 @@ public class YoutubeDL {
 
     /**
      * List tags
-     *
      * @param url Video url
      * @return list of tag
      * @throws YoutubeDLException
@@ -192,21 +196,17 @@ public class YoutubeDL {
 
     /**
      * Get command executable or path to the executable
-     *
      * @return path string
-     * @throws YoutubeDLException
      */
-    public static String getExecutablePath() {
+    public static String getExecutablePath(){
         return executablePath;
     }
 
     /**
      * Set path to use for the command
-     *
      * @param path String path to the executable
-     * @throws YoutubeDLException
      */
-    public static void setExecutablePath(String path) {
+    public static void setExecutablePath(String path){
         executablePath = path;
     }
 }
