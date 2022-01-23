@@ -32,7 +32,7 @@ public class CrawlingInfoService {
 
 
     public CrawlingInfo get(long id) {
-        return crawlingInfoRepository.getOne(id);
+        return crawlingInfoRepository.getById(id);
     }
 
 
