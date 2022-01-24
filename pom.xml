@@ -116,11 +116,6 @@
 			<artifactId>google-http-client-jackson2</artifactId>
 			<version>1.15.0-rc</version>
 		</dependency>
-		<dependency>
-			<groupId>com.google.http-client</groupId>
-			<artifactId>google-http-client-jackson2</artifactId>
-			<version>1.15.0-rc</version>
-		</dependency>
     </dependencies>
 	<dependencyManagement>
 		<dependencies>
