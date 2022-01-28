@@ -1,69 +1,72 @@
 package com.seventhnode.youtubecrawler.api;
 
-import com.seventhnode.youtubecrawler.entity.YoutubeDLRequest;
-import com.seventhnode.youtubecrawler.entity.YoutubeDLResponse;
-import com.seventhnode.youtubecrawler.exception.YoutubeDLException;
-import com.seventhnode.youtubecrawler.util.DownloadProgressCallback;
-import org.springframework.http.MediaType;
+import com.seventhnode.youtubecrawler.jobs.DownloadJob;
+import com.seventhnode.youtubecrawler.service.DownloadService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
-import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * RestController for YouTube Downloads
  */
 @RestController
 public class YoutubeDownloadController {
+    @Qualifier("taskExecutor")
+    @Autowired
+    private ThreadPoolTaskExecutor myExecutor;
+    @Autowired
+    private SimpMessagingTemplate template;
+    @Autowired
+    private DownloadService downloadService;
+    ConcurrentHashMap<String, DownloadJob> downloadJobConcurrentHashMap = new ConcurrentHashMap<>();
 
-    ResponseBodyEmitter emitter;
 
     /**
      * Download YouTube Video
      *
      * @param videoId
-     * @return ResponseBodyEmitter
      */
     @CrossOrigin
     @RequestMapping(path = "youtube/youtubedownload/{videoId}", method = RequestMethod.GET)
     public void download(@PathVariable String videoId) {
-        String videoUrl = "http://www.youtube.com/watch?v=" + videoId;
-
 
         String directory = System.getProperty("user.home");
-        emitter = new ResponseBodyEmitter();
 
-
-        YoutubeDLRequest request = new YoutubeDLRequest(videoUrl, directory);
-        request.setOption("ignore-errors");        // --ignore-errors
-        request.setOption("output", "%(id)s");    // --output "%(id)s"
-        request.setOption("retries", 10);        // --retries 10
-
-        try {
-            YoutubeDLResponse response = YoutubeDL.execute(request, new DownloadProgressCallback() {
-                @Override
-                public void onProgressUpdate(float progress, long etaInSeconds) {
-                    try {
-                        System.out.println(String.valueOf(progress) + "%");
-                        emitter.send(String.valueOf(progress) + "%", MediaType.APPLICATION_JSON);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-            String stdOut = response.getOut(); // Executable output
-            System.out.println(stdOut);
-        } catch (YoutubeDLException dlException) {
-            System.out.println(dlException.getMessage());
-            emitter.completeWithError(dlException);
-        }
-        emitter.complete();
+        DownloadJob downloadJob = new DownloadJob(videoId, directory, template);
+        downloadJobConcurrentHashMap.put(videoId, downloadJob);
+        downloadService.doWork((Runnable) downloadJob);
     }
 
-    @GetMapping(value = "progress")
-    public ResponseBodyEmitter progress() {
-        return emitter;
+    /**
+     * Get Job List
+     */
+    @CrossOrigin
+    @RequestMapping(path = "youtube/joblist", method = RequestMethod.GET)
+    public ConcurrentHashMap<String, DownloadJob> getJobList() {
+        return downloadJobConcurrentHashMap;
     }
+
+    /**
+     * Remove Job from Job list
+     * @param videoId
+     */
+    @CrossOrigin
+    @RequestMapping(path = "youtube/jobRemove/{videoId}", method = RequestMethod.GET)
+    public void removeJob(@PathVariable String videoId) {
+        downloadJobConcurrentHashMap.remove(videoId);
+    }
+
+    @RequestMapping(value = "/status")
+    @ResponseBody
+    @SubscribeMapping("initial")
+    public String getStatusByVideoId(String videoId){
+        return "";
+    }
+
 
 }

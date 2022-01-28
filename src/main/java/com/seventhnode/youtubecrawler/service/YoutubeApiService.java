@@ -40,8 +40,7 @@ public class YoutubeApiService {
     public static final JsonFactory JSON_FACTORY = new JacksonFactory();
 
     private YouTube youtube;
-
-    private long count = 0;
+    
 
     @Autowired
     public YoutubeVideoInfoService youtubeVideoInfoService;
@@ -56,13 +55,14 @@ public class YoutubeApiService {
     public CrawlingInfoService crawlingInfoService;
 
 
-    @Async("threadPoolTaskExecutor")
+    //@Async("taskExecutor")
     public void crawlYoutubeVideoInfo(String keyword, long pageToCrawl) {
         getYoutubeVideoList(keyword, pageToCrawl);
     }
 
     @Transactional
     public List<Object> getYoutubeVideoList(String queryTerm, long pageToCrawl) {
+        int resultSize = 0;
 
         try {
 
@@ -84,11 +84,9 @@ public class YoutubeApiService {
                 CrawlingInfo crawlingInfo = crawlingInfoService.getBySearchKey(queryTerm);
                 if (crawlingInfo != null && crawlingInfo.getNextPageToken() != null) {
                     pageToken = crawlingInfo.getNextPageToken();
-                    count = crawlingInfo.getTotalCount();
                     crawlingInfo.setCurrentPageToken(pageToken);
                 } else if (crawlingInfo == null) {
                     crawlingInfo = new CrawlingInfo();
-                    count = 0;
                     crawlingInfo.setSearchKey(queryTerm);
                     crawlingInfo.setCurrentPageToken(null);
                 }
@@ -101,10 +99,11 @@ public class YoutubeApiService {
 
                 List<SearchResult> searchResultList = searchResponse.getItems();
                 if (searchResultList != null) {
-                    extractAndSave(searchResultList.iterator(), queryTerm);
+                    resultSize = extractAndSave(searchResultList.iterator(), queryTerm);
                 }
 
                 crawlingInfo.setNextPageToken(searchResponse.getNextPageToken());
+                crawlingInfo.setTotalCount(resultSize);
 
                 crawlingInfoService.update(crawlingInfo);
 
@@ -121,8 +120,9 @@ public class YoutubeApiService {
         return null;
     }
 
-    private void extractAndSave(Iterator<SearchResult> iteratorSearchResults, String query) throws IOException {
+    private int extractAndSave(Iterator<SearchResult> iteratorSearchResults, String query) throws IOException {
 
+        int count = 0;
         if (!iteratorSearchResults.hasNext()) {
             System.out.println(" There aren't any results for your query.");
         }
@@ -130,7 +130,7 @@ public class YoutubeApiService {
         while (iteratorSearchResults.hasNext()) {
 
             SearchResult singleVideo = iteratorSearchResults.next();
-
+            count++;
             System.out.println(
                     "Video number = " + count + " Inserting video Information " + singleVideo.getId().getVideoId());
             count++;
@@ -163,6 +163,7 @@ public class YoutubeApiService {
             }
 
         }
+        return count;
     }
 
     private YoutubeChannelInfo getChannelDetailsById(String channelId) throws IOException {
