@@ -4,15 +4,11 @@ import com.seventhnode.youtubecrawler.entity.YoutubeDLRequest;
 import com.seventhnode.youtubecrawler.entity.YoutubeDLResponse;
 import com.seventhnode.youtubecrawler.exception.YoutubeDLException;
 import com.seventhnode.youtubecrawler.util.DownloadProgressCallback;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,8 +48,8 @@ public class YoutubeDownloadController {
                 @Override
                 public void onProgressUpdate(float progress, long etaInSeconds) {
                     try {
-                        System.out.println(String.valueOf(progress) + "%");
-                        emitter.send(String.valueOf(progress) + "%", MediaType.APPLICATION_JSON);
+                        System.out.println(progress + "%");
+                        emitter.send(progress + "%", MediaType.APPLICATION_JSON);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

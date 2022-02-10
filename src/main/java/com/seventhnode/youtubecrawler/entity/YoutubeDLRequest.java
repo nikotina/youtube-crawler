@@ -1,6 +1,8 @@
 package com.seventhnode.youtubecrawler.entity;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * YoutubeDL request
@@ -20,7 +22,7 @@ public class YoutubeDLRequest {
     /**
      * List of executable options
      */
-    private Map<String, String> options = new HashMap<String, String>();
+    private final Map<String, String> options = new HashMap<String, String>();
 
     public String getDirectory() {
         return directory;

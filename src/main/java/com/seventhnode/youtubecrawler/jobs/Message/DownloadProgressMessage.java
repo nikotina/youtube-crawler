@@ -2,8 +2,8 @@ package com.seventhnode.youtubecrawler.jobs.Message;
 
 public class DownloadProgressMessage {
 
-        private String videoId;
-        private String state;
+        private final String videoId;
+    private String state;
         private float progress;
 
         public DownloadProgressMessage(String videoId)

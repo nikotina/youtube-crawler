@@ -8,7 +8,7 @@ public class YoutubeDLException extends Exception {
     /**
      * Exception message
      */
-    private String message;
+    private final String message;
 
     /**
      * Construct YoutubeDLException with a message

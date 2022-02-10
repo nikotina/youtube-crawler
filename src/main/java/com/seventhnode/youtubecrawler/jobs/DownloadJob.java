@@ -13,13 +13,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class DownloadJob implements Runnable {
 
 
-    private SimpMessagingTemplate template;
+    private final SimpMessagingTemplate template;
 
 
-    private AtomicInteger progressInt = new AtomicInteger();
+    private final AtomicInteger progressInt = new AtomicInteger();
     private String state = "NEW";
-    private String videoUrl;
-    private String directory;
+    private final String videoUrl;
+    private final String directory;
 
 
     public DownloadJob(String videoUrl, String directory, SimpMessagingTemplate template) {
@@ -58,7 +58,7 @@ public class DownloadJob implements Runnable {
                     downloadProgressMessage.setProgress(progress);
                     downloadProgressMessage.setState("RUNNING");
                     template.convertAndSend("/status/" + getVideoId(), downloadProgressMessage);
-                    System.out.println(String.valueOf(progress) + "%");
+                    System.out.println(progress + "%");
                 }
             });
 

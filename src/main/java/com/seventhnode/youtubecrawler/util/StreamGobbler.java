@@ -5,8 +5,8 @@ import java.io.InputStream;
 
 public class StreamGobbler extends Thread {
 
-    private InputStream stream;
-    private StringBuffer buffer;
+    private final InputStream stream;
+    private final StringBuffer buffer;
 
     public StreamGobbler(StringBuffer buffer, InputStream stream) {
         this.stream = stream;

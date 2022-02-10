@@ -7,13 +7,13 @@ import java.util.Map;
  */
 public class YoutubeDLResponse {
 
-    private Map<String, String> options;
-    private String command;
-    private int exitCode;
-    private String out;
-    private String err;
-    private String directory;
-    private int elapsedTime;
+    private final Map<String, String> options;
+    private final String command;
+    private final int exitCode;
+    private final String out;
+    private final String err;
+    private final String directory;
+    private final int elapsedTime;
 
     public YoutubeDLResponse(String command, Map<String, String> options, String directory, int exitCode, int elapsedTime, String out, String err) {
         this.command = command;
