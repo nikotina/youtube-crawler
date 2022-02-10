@@ -48,6 +48,9 @@ public class YouTubeVideoInfo extends BaseEntity {
 	@Column(name = "keyword")
 	private String keyword;
 
+	@Column(name = "downloaded")
+	private boolean downloaded;
+
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	@JoinColumn(name = "channel_id", referencedColumnName = "channel_id")
 	private YoutubeChannelInfo channelInfo;
@@ -58,10 +61,7 @@ public class YouTubeVideoInfo extends BaseEntity {
 
 	@PrePersist
 	private void prePersistFunction() {
-
 		description = Converter.removeAllEmojis(description);
-
 		title = Converter.removeAllEmojis(title);
-
 	}
 }

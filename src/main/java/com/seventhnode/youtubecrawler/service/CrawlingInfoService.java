@@ -17,10 +17,9 @@ public class CrawlingInfoService {
 
     @Autowired
     private CrawlingInfoRepository crawlingInfoRepository;
-    
+
     @Autowired
     private YoutubeVideoInfoRepository youtubeVideoInfoRepository;
-
 
     public void save(CrawlingInfo crawlingInfo) {
         crawlingInfoRepository.save(crawlingInfo);
@@ -30,26 +29,23 @@ public class CrawlingInfoService {
         crawlingInfoRepository.save(crawlingInfo);
     }
 
-
     public CrawlingInfo get(long id) {
         return crawlingInfoRepository.getById(id);
     }
 
-
     public CrawlingInfo getBySearchKey(String searchKey) {
         return crawlingInfoRepository.findBySearchKey(searchKey);
     }
-
 
     public List<CrawlingInfo> getAll() {
         return crawlingInfoRepository.findAll();
     }
 
     public void deleteById(long id) {
-    	CrawlingInfo cI = crawlingInfoRepository.getById(id);
-    	String searchKey = cI.getSearchKey();
-    	youtubeVideoInfoRepository.deleteByKeyword(searchKey);
-    	crawlingInfoRepository.deleteById(id);
-    	
+        CrawlingInfo cI = crawlingInfoRepository.getById(id);
+        String searchKey = cI.getSearchKey();
+        youtubeVideoInfoRepository.deleteByKeyword(searchKey);
+        crawlingInfoRepository.deleteById(id);
+
     }
 }
