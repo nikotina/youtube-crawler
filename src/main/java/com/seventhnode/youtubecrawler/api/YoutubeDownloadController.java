@@ -4,6 +4,8 @@ import com.seventhnode.youtubecrawler.entity.YoutubeDLRequest;
 import com.seventhnode.youtubecrawler.entity.YoutubeDLResponse;
 import com.seventhnode.youtubecrawler.exception.YoutubeDLException;
 import com.seventhnode.youtubecrawler.util.DownloadProgressCallback;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -20,8 +22,11 @@ import java.util.Set;
 @RestController
 public class YoutubeDownloadController {
 
+    @Autowired
+    private Environment env;
 
     public static final Map<String, SseEmitter> emitters = Collections.synchronizedMap(new HashMap<String, SseEmitter>());
+
     /**
      * Download YouTube Video
      *
@@ -34,7 +39,7 @@ public class YoutubeDownloadController {
         String videoUrl = "http://www.youtube.com/watch?v=" + videoId;
 
 
-        String directory = System.getProperty("user.home");
+        String directory = env.getProperty("youtube.downloadDirectory");
         SseEmitter emitter = new SseEmitter();
         emitters.put(videoId,emitter);
 
