@@ -14,10 +14,8 @@ import com.seventhnode.youtubecrawler.entity.CrawlingInfo;
 import com.seventhnode.youtubecrawler.entity.YouTubeVideoInfo;
 import com.seventhnode.youtubecrawler.entity.YoutubeChannelInfo;
 import com.seventhnode.youtubecrawler.entity.YoutubeVideoStatistics;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +50,7 @@ public class YoutubeApiService {
     public YoutubeChannelService youtubeChannelService;
 
     @Autowired
-    public CrawlingInfoService crawlingInfoService;
+    public SearchInfoService searchInfoService;
 
 
     //@Async("taskExecutor")
@@ -81,7 +79,7 @@ public class YoutubeApiService {
 
             for (int i = 0; i < pageToCrawl; i++) {
                 String pageToken = null;
-                CrawlingInfo crawlingInfo = crawlingInfoService.getBySearchKey(queryTerm);
+                CrawlingInfo crawlingInfo = searchInfoService.getBySearchKey(queryTerm);
                 if (crawlingInfo != null && crawlingInfo.getNextPageToken() != null) {
                     pageToken = crawlingInfo.getNextPageToken();
                     crawlingInfo.setCurrentPageToken(pageToken);
@@ -105,7 +103,7 @@ public class YoutubeApiService {
                 crawlingInfo.setNextPageToken(searchResponse.getNextPageToken());
                 crawlingInfo.setTotalCount(resultSize);
 
-                crawlingInfoService.update(crawlingInfo);
+                searchInfoService.update(crawlingInfo);
 
                 System.out.println("Next Page token : " + searchResponse.getNextPageToken());
             }
