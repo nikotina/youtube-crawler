@@ -2,7 +2,7 @@ package com.seventhnode.youtubecrawler.service;
 
 
 import com.seventhnode.youtubecrawler.entity.CrawlingInfo;
-import com.seventhnode.youtubecrawler.repository.CrawlingInfoRepository;
+import com.seventhnode.youtubecrawler.repository.SearchInfoRepository;
 import com.seventhnode.youtubecrawler.repository.YoutubeVideoInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.List;
 public class SearchInfoService {
 
     @Autowired
-    private CrawlingInfoRepository crawlingInfoRepository;
+    private SearchInfoRepository crawlingInfoRepository;
 
     @Autowired
     private YoutubeVideoInfoRepository youtubeVideoInfoRepository;

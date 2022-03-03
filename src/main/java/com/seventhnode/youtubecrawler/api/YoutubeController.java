@@ -1,19 +1,14 @@
 package com.seventhnode.youtubecrawler.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.seventhnode.youtubecrawler.entity.CrawlingInfo;
 import com.seventhnode.youtubecrawler.entity.YouTubeVideoInfo;
 import com.seventhnode.youtubecrawler.entity.YoutubeChannelInfo;
 import com.seventhnode.youtubecrawler.entity.YoutubeVideoStatistics;
-import com.seventhnode.youtubecrawler.service.CrawlingInfoService;
-import com.seventhnode.youtubecrawler.service.YoutubeApiService;
-import com.seventhnode.youtubecrawler.service.YoutubeChannelService;
-import com.seventhnode.youtubecrawler.service.YoutubeVideoInfoService;
-import com.seventhnode.youtubecrawler.service.YoutubeVideoStatService;
+import com.seventhnode.youtubecrawler.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,9 +27,9 @@ public class YoutubeController {
 
     @Autowired
     YoutubeVideoStatService youtubeVideoStatService;
-    
+
     @Autowired
-    CrawlingInfoService crawlingInfoService;
+    SearchInfoService crawlingInfoService;
 
     @GetMapping(value = "crawl/{keyword}/{pageToCrawl}")
     public void crawlVideo(@PathVariable String keyword, @PathVariable long pageToCrawl) {
