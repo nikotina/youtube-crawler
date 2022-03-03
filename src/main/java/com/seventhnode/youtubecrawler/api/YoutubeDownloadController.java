@@ -39,15 +39,16 @@ public class YoutubeDownloadController {
         String videoUrl = "http://www.youtube.com/watch?v=" + videoId;
 
 
-        String directory = env.getProperty("youtube.downloadDirectory");
+        String execDirectory = env.getProperty("youtube.executable");
+        String downloadDirectory = env.getProperty("youtube.downloadDirectory");
         SseEmitter emitter = new SseEmitter();
-        emitters.put(videoId,emitter);
+        emitters.put(videoId, emitter);
 
-        YoutubeDLRequest request = new YoutubeDLRequest(videoUrl, directory);
+        YoutubeDLRequest request = new YoutubeDLRequest(videoUrl, execDirectory);
         request.setOption("ignore-errors");        // --ignore-errors
         request.setOption("output", "%(id)s");    // --output "%(id)s"
         request.setOption("retries", 10);        // --retries 10
-        request.setOption("output", videoId + ".mp4");
+        request.setOption("output", downloadDirectory + videoId + ".mp4");
         try {
             YoutubeDLResponse response = YoutubeDL.execute(request, new DownloadProgressCallback() {
                 @Override

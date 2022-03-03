@@ -29,7 +29,7 @@ public class YoutubeController {
     YoutubeVideoStatService youtubeVideoStatService;
 
     @Autowired
-    SearchInfoService crawlingInfoService;
+    SearchInfoService searchInfoService;
 
     @GetMapping(value = "crawl/{keyword}/{pageToCrawl}")
     public void crawlVideo(@PathVariable String keyword, @PathVariable long pageToCrawl) {
@@ -38,7 +38,7 @@ public class YoutubeController {
     @CrossOrigin
     @GetMapping(value = "crawl")
     public List<CrawlingInfo> getAllCrawlingInfo() {
-        return crawlingInfoService.getAll();
+        return searchInfoService.getAll();
     }
 
     @GetMapping(value = "info")
@@ -58,8 +58,8 @@ public class YoutubeController {
     
     @DeleteMapping(value = "info/delete/{id}")
     public ResponseEntity<Long> deleteVideoInfo(@PathVariable long id) {
-    	System.out.println("in delete");
-    	crawlingInfoService.deleteById(id);
+        System.out.println("in delete");
+        searchInfoService.deleteById(id);
     	return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
