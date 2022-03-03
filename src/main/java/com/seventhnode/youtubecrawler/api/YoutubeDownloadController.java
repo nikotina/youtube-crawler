@@ -39,7 +39,7 @@ public class YoutubeDownloadController {
         String videoUrl = "http://www.youtube.com/watch?v=" + videoId;
 
 
-        String execDirectory = env.getProperty("youtube.executable");
+        String execDirectory = ""; //env.getProperty("youtube.executable");
         String downloadDirectory = env.getProperty("youtube.downloadDirectory");
         SseEmitter emitter = new SseEmitter();
         emitters.put(videoId, emitter);
