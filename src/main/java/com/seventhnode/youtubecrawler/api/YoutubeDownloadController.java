@@ -46,9 +46,9 @@ public class YoutubeDownloadController {
 
         YoutubeDLRequest request = new YoutubeDLRequest(videoUrl, execDirectory);
         request.setOption("ignore-errors");        // --ignore-errors
-        request.setOption("output", "%(title)s.%(ext)s");    // --output "%(id)s"
+        //request.setOption("output", "%(title)s.%(ext)s");    // --output "%(id)s"
         request.setOption("retries", 10);        // --retries 10
-        request.setOption("output", downloadDirectory + videoId + ".mp4");
+        request.setOption("output", downloadDirectory + "%(title)s.%(ext)s");
         try {
             YoutubeDLResponse response = YoutubeDL.execute(request, new DownloadProgressCallback() {
                 @Override
