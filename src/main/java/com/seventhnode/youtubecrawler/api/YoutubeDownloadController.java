@@ -4,6 +4,7 @@ import com.seventhnode.youtubecrawler.entity.YoutubeDLRequest;
 import com.seventhnode.youtubecrawler.entity.YoutubeDLResponse;
 import com.seventhnode.youtubecrawler.exception.YoutubeDLException;
 import com.seventhnode.youtubecrawler.util.DownloadProgressCallback;
+import javassist.bytecode.stackmap.TypeData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
@@ -15,13 +16,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * RestController for YouTube Downloads
  */
 @RestController
 public class YoutubeDownloadController {
-
+    private static final Logger LOGGER = Logger.getLogger(TypeData.ClassName.class.getName());
     @Autowired
     private Environment env;
 
@@ -54,7 +56,7 @@ public class YoutubeDownloadController {
                 @Override
                 public void onProgressUpdate(float progress, long etaInSeconds) {
                     try {
-                        System.out.println(progress + "%");
+                        //Logger.log(Level.FINE, progress + "%");
                         emitter.send(progress + "%", MediaType.APPLICATION_JSON);
                     } catch (IOException e) {
                         e.printStackTrace();
